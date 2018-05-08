@@ -1,23 +1,45 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { TabNavigator } from 'react-navigation';
+import NowPlaying from './NowPlaying';
+import TopRated from './TopRated';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
+const Tabs = TabNavigator({
+		NowPlaying: {
+			screen: NowPlaying
+		},
+		TopRated: {
+			screen: TopRated
+		}
+	},
+	{
+		initialRouteName: 'NowPlaying',
+		tabBarPosition: 'bottom',
+		swipeEnabled: true,
+		tabBarOptions: {
+			activeTintColor: 'white',
+			activeBackgroundColor: 'darkgreen',
+			inactiveTintColor: "black",
+			inactiveBackgroundColor: "green",
+			labelStyle: {
+				fontSize: 16,
+				padding: 20
+			}
+		}
+	}, 
+	{
+		navigationOptions: ({ navigation }) => ({
+			title: 'Testing'
+		})
+	}
+);
+
+class App extends React.Component {
+	render() {
+		return (
+			<Tabs></Tabs>
+		);
+	}
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
