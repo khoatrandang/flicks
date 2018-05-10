@@ -1,15 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 import NowPlaying from './NowPlaying';
 import TopRated from './TopRated';
 
-const Tabs = TabNavigator({
+const AppNavigator = createBottomTabNavigator({
 		NowPlaying: {
-			screen: NowPlaying
+			screen: NowPlaying,
+			navigationOptions: ({ navigation }) => ({
+				title: "Now Playing"
+			})
 		},
 		TopRated: {
-			screen: TopRated
+			screen: TopRated,
+			navigationOptions: ({ navigation }) => ({
+				title: "Top Rated"
+			})
 		}
 	},
 	{
@@ -26,18 +32,13 @@ const Tabs = TabNavigator({
 				padding: 20
 			}
 		}
-	}, 
-	{
-		navigationOptions: ({ navigation }) => ({
-			title: 'Testing'
-		})
 	}
 );
 
 class App extends React.Component {
 	render() {
 		return (
-			<Tabs></Tabs>
+			<AppNavigator />
 		);
 	}
 }

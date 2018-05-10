@@ -9,45 +9,29 @@ class MovieList extends React.Component {
         super(props);
 
         this.state = {
-            allMovies: [],
             movies: []
         }
-
-        this.resetSearch = this.resetSearch.bind(this);
-        this.filterMovies = this.filterMovies.bind(this);
     }
 
     componentWillMount() {
 		console.log("[MovieList] componentWillMount raised");
 
-        this.setState({
-            allMovies: this.props.screenProps.movies,
-            movies: this.props.screenProps.movies
-        });
+        // this.setState({
+        //     movies: this.props.screenProps.movies
+        // });
 	}
 
     componentWillReceiveProps(receivedProps) {
 		console.log("[MovieList] componentWillReceiveProps raised");
-        console.log("receive", receivedProps);
-        this.setState({
-            allMovies: receivedProps.screenProps.movies,
-            movies: receivedProps.screenProps.movies
-        });
-    }
-
-    resetSearch() { }
-
-    filterMovies(searchString) {
-        const filteredMovies = this.state.allMovies.filter(item => item.title.indexOf(searchString) !== -1);
-
-        this.setState({
-            movies: filteredMovies !== undefined ? filteredMovies : this.state.allMovies
-        });
+        console.log("receivedProps: ", receivedProps);
+        // this.setState({
+        //     movies: receivedProps.screenProps.movies
+        // });
     }
 
     render() {
         const props = this.props.screenProps;
-        const movies = this.state.movies;
+        const movies = props.movies;
 
         console.log('props', props);
 
@@ -55,15 +39,15 @@ class MovieList extends React.Component {
             <View>
                 <SearchBar
                     showLoading
-                    onChangeText={this.filterMovies}
-                    onClear={this.resetSearch}
+                    onChangeText={ (val) => props.search(val) }
+                    onClear={ props.resetSearch }
                     platform="ios"
                     cancelButtonTitle="Cancel"
                     placeholder='search...' />
                 <FlatList
                     refreshing={props.loading}
                     data={movies}
-                    keyExtractor={(movie) => movie.id}
+                    keyExtractor={(movie) => movie.id.toString()}
                     onEndReachedThreshold={0.05}
                     onEndReached={props.loadMore}
                     numColumns={1}
@@ -78,7 +62,7 @@ class MovieList extends React.Component {
                     }}
                     ListFooterComponent={() =>
                         <View>
-                            <ActivityIndicator size="large" />
+                            <ActivityIndicator size="large" hidesWhenStopped={!props.loading} />
                         </View>
                     }
                 />

@@ -1,22 +1,15 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, Text } from 'react-native';
 
 class TopRated extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    static navigationOptions = {
-        tabBarLabel: "Top Rated",
-        tabBarOnPress: (navigation)=>{
-            console.log(navigation);
-        }
-    }
-
     render() {
         return (
             <View>
-                <ActivityIndicator size="large" />
+                <Text>Welcom to the top rated movies!</Text>
             </View>
         );
     }
