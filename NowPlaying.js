@@ -38,21 +38,17 @@ class NowPlaying extends React.Component {
 		this.fetchMovies = this.fetchMovies.bind(this);
 		this.loadMore = this.loadMore.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
-        this.resetSearch = this.resetSearch.bind(this);
 	}
 
 	static router = NowPlayingNavigator.router;
 
 	async componentWillMount() {
-		console.log("[NowPlaying] componentWillMount raised");
 		try {
 			this.movies = await this.fetchMovies(1);
 		} catch (e) {
 			alert('Error fetching the initial movie list');
 			this.movies = [];
 		}
-
-		console.log("movies: ", this.movies);
 
 		await this.setState({
 			allMovies: this.movies,
@@ -65,10 +61,9 @@ class NowPlaying extends React.Component {
 		try {
 			const response = await fetch(`${apiUrl}?api_key=${apiKey}&page=${page}`);
 			const data = await response.json();
-			console.log(data);
 			return data.results;
 		} catch (e) {
-			console.log('Error fetching the movie list');
+			alert('Error fetching the movie list');
 			return [];
 		}
 	}
@@ -92,7 +87,6 @@ class NowPlaying extends React.Component {
 	}
 
 	handleSearch(value) {
-		console.log("handleSearch: ", value);
 		const filteredMovies = this.state.allMovies.filter( m => m.title.indexOf(value) !== -1 );
 		this.setState({
 			searchText: value,
@@ -100,8 +94,6 @@ class NowPlaying extends React.Component {
 			isLoading: false
 		});
 	}
-
-    resetSearch() { }
 
 	render() {
 		return (

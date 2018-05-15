@@ -16,28 +16,31 @@ const styles = StyleSheet.create({
     }
 });
 
-class MovieDetails extends React.Component {
-    render() {
-        const props = this.props.navigation.state.params;
-        const img = { uri: moviePosterUrl + props.poster_path };
-        return (
-            <View>
-                <Image
-                    style={styles.image}
-                    source={img}
-                />
-                <View style={styles.overview}>
-                    <HTMLView
-                        value={props.overview} />
-                </View>
+const MovieDetails = (props) => {
+    const navigationParams = props.navigation.state.params;
+    const img = { uri: moviePosterUrl + navigationParams.poster_path };
+    return (
+        <View>
+            <Image
+                style={styles.image}
+                source={img}
+            />
+            <View style={styles.overview}>
+                <HTMLView
+                    value={navigationParams.overview} />
             </View>
-        );
-    }
+        </View>
+    );
 }
 
 MovieDetails.propTypes = {
     navigation: PropTypes.shape({
-        results: PropTypes.object,
+        state: PropTypes.shape({
+            params: PropTypes.shape({
+                poster_path: PropTypes.string,
+                overview: PropTypes.string,
+            })
+        })
     })
 }
 

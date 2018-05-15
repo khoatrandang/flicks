@@ -30,35 +30,32 @@ const styles = StyleSheet.create({
     }
 });
 
-class MovieCard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const props = this.props.movie;
-        const img = { uri: moviePosterUrl + props.poster_path };
-        return (
-            <TouchableHighlight onPress={this.props.loadDetails}>
-                <View style={styles.container}>
-                    <Image
-                        style={styles.image}
-                        source={img}
-                    />
-                    <View>
-                        <Text style={styles.title}> {props.title} </Text>
-                        <Text style={styles.overview}>  {props.overview} </Text>
-                    </View>
+const MovieCard = (props) => {
+    const movie = props.movie;
+    const img = { uri: moviePosterUrl + movie.poster_path };
+    return (
+        <TouchableHighlight onPress={props.loadDetails}>
+            <View style={styles.container}>
+                <Image
+                    style={styles.image}
+                    source={img}
+                />
+                <View>
+                    <Text style={styles.title}> {movie.title} </Text>
+                    <Text style={styles.overview}>  {movie.overview} </Text>
                 </View>
-            </TouchableHighlight>
-        )
-    }
+            </View>
+        </TouchableHighlight>
+    )
 }
 
 MovieCard.propTypes = {
     movie: PropTypes.shape({
-        results: PropTypes.array,
-    })
-}
+        poster_path: PropTypes.string,
+        title: PropTypes.string,
+        overview: PropTypes.string,
+    }),
+    loadDetails: PropTypes.func,
+};
 
 export default MovieCard;
