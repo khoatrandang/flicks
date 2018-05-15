@@ -1,20 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import NowPlaying from './NowPlaying';
 import TopRated from './TopRated';
 
-const AppNavigator = createBottomTabNavigator({
+const AppNavigator = createBottomTabNavigator(
+	{
 		NowPlaying: {
 			screen: NowPlaying,
-			navigationOptions: ({ navigation }) => ({
-				title: "Now Playing"
+			navigationOptions: () => ({
+				title: 'Now Playing'
 			})
 		},
 		TopRated: {
 			screen: TopRated,
-			navigationOptions: ({ navigation }) => ({
-				title: "Top Rated"
+			navigationOptions: () => ({
+				title: 'Top Rated'
 			})
 		}
 	},
@@ -25,8 +25,8 @@ const AppNavigator = createBottomTabNavigator({
 		tabBarOptions: {
 			activeTintColor: 'white',
 			activeBackgroundColor: 'darkgreen',
-			inactiveTintColor: "black",
-			inactiveBackgroundColor: "green",
+			inactiveTintColor: 'black',
+			inactiveBackgroundColor: 'green',
 			labelStyle: {
 				fontSize: 16,
 				padding: 20
@@ -35,12 +35,6 @@ const AppNavigator = createBottomTabNavigator({
 	}
 );
 
-class App extends React.Component {
-	render() {
-		return (
-			<AppNavigator />
-		);
-	}
-}
+const App = () => (<AppNavigator />);
 
 export default App;
